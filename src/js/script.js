@@ -34,18 +34,22 @@ class Task {
             <li class="task-date">${this.prettyDate()}</li>
             <button class="task-delete material-icon" type="button">clear</button><br>
         </li>
+
+        updateStorage()
+        deleteTask()
         `
-        
     }
     prettyDate() {
         // TODO: Fill out this method. It should return the date in our
         // locale's format, 'MM / DD / YYYY', instead of the
         // easily-sortable international standard, 'YYYY-MM-DD'.
+        this.date.toLocalString('en-us', {month:"numeric", day:"numeric", year:"numeric",})
         return ``
     }
     toggle() {
         // TODO: Fill out this method. It should flip this Task's `done`
         // property from `true` to `false`, or from `false` to `true`.
+        this.done = !this.done
     }
 }
 
@@ -57,32 +61,42 @@ let tasks = [
         id: Date.now() // makes a unique id
     })
 ]
+// updateStorage(tasks)
+// readStorage(tasks)
 
 // Delete the hardcoded task array once it gets all figured out and use whats below for local storage
 // let tasks = readStorage()
 
 function updateStorage(newData) {
     // ... update the local storage
-    localStorage.setItem("tasks", JSON.stringify(newData))
+    localStorage.setItem("database", JSON.stringify(newData))
 }
 
 function readStorage() {
     // ... read from the local storage
-    let jsonString = localStorage.getItem("tasks")
+    localStorage.getItem('database')
     let result = JSON.parse(jsonString) || []
     result = result.map(taskData => new Task(taskData))
+    return result
 }
 
-function createTask() {
+function createTask(event) {
     // TODO: Pull in form data from DOM
+    let formData = new FormData(event.currentTarget)
     // TODO: Format it to JSON
+    let json = JSON.stringify(Object.fromEntries(formData))
     // TODO: Save it to local storage
+    updateStorage(json);
+    event.preventDefault();
     // Hint - Look at the JavaScript code from lab 1B to see how to extract form data
 }
 function readTasks() {
     // TODO: Pull in tasks from local storage
+    let tasks = readStorage;
     // TODO: Parse tasks using the toHTML() function
+    tasks.toHTML();
     // TODO: Update DOM accordingly
+    updateStorage();
 }
 function updateTask(id) {
     // TODO: Update the task in `tasks` array by flipping it's `done` value

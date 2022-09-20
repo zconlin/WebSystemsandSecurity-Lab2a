@@ -30,7 +30,7 @@
 
   <!-- List of tasks -->
   <ul class="tasklist">
-    <input type="checkbox" class="task-done checkbox-icon" name="check1" id="check1"/>
+    <!-- <input type="checkbox" class="task-done checkbox-icon" name="check1" id="check1"/>
     <li class="task-description set-width">Do homework</li>
     <li class="task-date">09-07-2022</li>
     <button class="task-delete material-icon" type="button">clear</button><br>
@@ -43,11 +43,11 @@
     <input type="checkbox" class="task-done checkbox-icon" name="check3" id="check3"/>
     <li class="task-description set-width">Get some sleep</li>
     <li class="task-date">09-12-2022</li>
-    <button class="task-delete material-icon" type="button">clear</button><br>
+    <button class="task-delete material-icon" type="button">clear</button><br> -->
   </ul>
 
   <!-- Input Form -->
-  <form class="form-create-task" onsubmit="on_submit(event)">
+  <form class="form-create-task" onsubmit="on_submit(event)" onclick="(readStorage)">
     <input type="text" id="taskName" name="taskName" required><br>
     <input type="date" id="date" name="date" required><br>
     <input class="create-button" type="submit" value="Create Task" required><br>
