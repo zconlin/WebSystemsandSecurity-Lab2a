@@ -55,7 +55,7 @@ function updateStorage(newData) {
 
 function readStorage() {
     // ... read from the local storage
-    let jsonString = localStorage.getItem('database') 
+    let jsonString = localStorage.getItem('database')
     let result = JSON.parse(jsonString) || []
     result = result.map(taskData => new Task(taskData))
     return result
@@ -122,12 +122,3 @@ function prevent(event){
     /* If you were to comment out the line below you would see that the page reloads every time you click the button */
     event.preventDefault();
 }
-
-// function checkboxClick(e) {
-//     let checkbox = e.target;
-//     let checked = checkbox.checked;
-//     console.log(checked);
-//     let span = checkbox.parentElement;
-//     // console.log(carid.getattribute);
-//     span.className = checked ? "checked-task" : "";
-// }
