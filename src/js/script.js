@@ -1,9 +1,3 @@
-function prevent(event){
-    /* Make sure it is the first line of code in the function, if there is an error in a line of code that is above event.preventDefault() the function will stop and never reach it.
-    /* If you were to comment out the line below you would see that the page reloads every time you click the button */
-    event.preventDefault();
-}
-
 class Task {
     constructor({ text, date, done, id }) {
         // HINT This method is the constructor. In C++, this would be
@@ -26,25 +20,23 @@ class Task {
         // Task. It should also have two inline event handlers, which call the
         // update and delete function, with this Task's `id` as a
         // parameter.
-        return 
-        `
+        return `
         <li>
-            <input type="checkbox" class="${task-done ? "THISCLASSISTRUE" : "THISCLASSISFALSE"} checkbox-icon" name="check2" id="check2" checked/>
-            <li class="task-description set-width checked-task">${this.text}</li>
-            <li class="task-date">${this.prettyDate()}</li>
-            <button class="task-delete material-icon" type="button">clear</button><br>
+            <input type="checkbox" class="checkbox-icon" onclick='updateTask(${this.id})' ${this.done ? "checked" : ""}>
+            <span class="task-description set-width ${this.done ? "checked-task" : ""}">${this.text}</span>
+            <span class="task-date">${this.prettyDate()}</span>
+            <button class="task-delete material-icon" onclick="deleteTask(${this.id})" type="button">clear</button><br>
         </li>
-
-        updateStorage()
-        deleteTask()
         `
     }
     prettyDate() {
         // TODO: Fill out this method. It should return the date in our
         // locale's format, 'MM / DD / YYYY', instead of the
         // easily-sortable international standard, 'YYYY-MM-DD'.
-        this.date.toLocalString('en-us', {month:"numeric", day:"numeric", year:"numeric",})
-        return ``
+        // this.date.toLocalString('en-us', {month:"numeric", day:"numeric", year:"numeric",})
+        let date = new Date(this.date)
+        return `${date.getUTCMonth()+1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
+        console.log(date);
     }
     toggle() {
         // TODO: Fill out this method. It should flip this Task's `done`
@@ -53,19 +45,8 @@ class Task {
     }
 }
 
-let tasks = [
-    new Task({
-        text: "First task",
-        done: false,
-        date: "2020-02-10",
-        id: Date.now() // makes a unique id
-    })
-]
-// updateStorage(tasks)
-// readStorage(tasks)
-
-// Delete the hardcoded task array once it gets all figured out and use whats below for local storage
-// let tasks = readStorage()
+let tasks = readStorage()
+readTasks();
 
 function updateStorage(newData) {
     // ... update the local storage
@@ -74,45 +55,79 @@ function updateStorage(newData) {
 
 function readStorage() {
     // ... read from the local storage
-    localStorage.getItem('database')
+    let jsonString = localStorage.getItem('database') 
     let result = JSON.parse(jsonString) || []
     result = result.map(taskData => new Task(taskData))
     return result
 }
 
 function createTask(event) {
-    // TODO: Pull in form data from DOM
-    let formData = new FormData(event.currentTarget)
-    // TODO: Format it to JSON
-    let json = JSON.stringify(Object.fromEntries(formData))
-    // TODO: Save it to local storage
-    updateStorage(json);
     event.preventDefault();
-    // Hint - Look at the JavaScript code from lab 1B to see how to extract form data
+    let formData = new FormData(event.currentTarget)
+    let json = Object.fromEntries(formData)
+    let newTask = new Task({text: json.taskName, date: json.date, done: false, id: Date.now()})
+    tasks.push(newTask);
+    updateStorage(tasks);
+    readTasks();
+        // TODO: Pull in form data from DOM
+        // TODO: Format it to JSON
+        // TODO: Save it to local storage
+        // Hint - Look at the JavaScript code from lab 1B to see how to extract form data
 }
+
 function readTasks() {
+    tasks = readStorage()
+    let newString = ""
+    let tempString
+
+    for (const x in tasks){
+        tempString = tasks.at(x).toHTML()
+        newString = newString + tempString
+    }
+    document.getElementById("taskList").innerHTML = newString
     // TODO: Pull in tasks from local storage
-    let tasks = readStorage;
     // TODO: Parse tasks using the toHTML() function
-    tasks.toHTML();
     // TODO: Update DOM accordingly
-    updateStorage();
 }
 function updateTask(id) {
+    console.log(id)
+    for (const x in tasks) {
+        if(tasks[x].id == id) {
+            tasks.at(x).toggle()
+        }
+    }
+    updateStorage(tasks)
+    readTasks()
     // TODO: Update the task in `tasks` array by flipping it's `done` value
     // TODO: Save to local storage
     // TODO: Make the DOM update
+    // Call Toggle function and update HTML + local storage
 }
 function deleteTask(id) {
+    console.log(id)
+    for (const x in tasks) {
+        if (tasks[x].id == id) {
+            tasks.splice(x,1)
+        }
+    }
     // TODO: Delete task from `tasks` array
     // TODO: Save to local storage
     // TODO: Make the DOM update
+    updateStorage(tasks)
+    readTasks()
 }
 
-function on_submit(event) {
-    let formData = new FormData(event.currentTarget);
-    let json = JSON.stringify(Object.fromEntries(formData));
-    alert(json);
-    console.log(alert)
+function prevent(event){
+    /* Make sure it is the first line of code in the function, if there is an error in a line of code that is above event.preventDefault() the function will stop and never reach it.
+    /* If you were to comment out the line below you would see that the page reloads every time you click the button */
     event.preventDefault();
 }
+
+// function checkboxClick(e) {
+//     let checkbox = e.target;
+//     let checked = checkbox.checked;
+//     console.log(checked);
+//     let span = checkbox.parentElement;
+//     // console.log(carid.getattribute);
+//     span.className = checked ? "checked-task" : "";
+// }

@@ -29,7 +29,7 @@
   <input type='checkbox' class="toggle-switch" id="ft-sort" name="ft-sort"/><label for="ft-sort">Filter completed tasks</label>
 
   <!-- List of tasks -->
-  <ul class="tasklist">
+  <ul class="tasklist" id="taskList">
     <!-- <input type="checkbox" class="task-done checkbox-icon" name="check1" id="check1"/>
     <li class="task-description set-width">Do homework</li>
     <li class="task-date">09-07-2022</li>
@@ -47,7 +47,7 @@
   </ul>
 
   <!-- Input Form -->
-  <form class="form-create-task" onsubmit="on_submit(event)" onclick="(readStorage)">
+  <form class="form-create-task" onsubmit="createTask(event)" onclick="(readStorage)">
     <input type="text" id="taskName" name="taskName" required><br>
     <input type="date" id="date" name="date" required><br>
     <input class="create-button" type="submit" value="Create Task" required><br>

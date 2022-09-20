@@ -92,3 +92,9 @@ Provided a refresher for the HTML needed to build the page to the required speci
 Learned the CSS syntax: https://www.w3schools.com/w3css/
 
 Helped with WSL installation problems: https://docs.microsoft.com/en-us/windows/wsl/install
+
+
+
+toHTML () {
+    let str
+}
