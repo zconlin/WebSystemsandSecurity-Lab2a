@@ -75,6 +75,14 @@ function createTask(event) {
         // Hint - Look at the JavaScript code from lab 1B to see how to extract form data
 }
 
+function sortTasks() {
+    alert("The function 'sortTasks' is executed");
+    }
+
+    //numbers = [1, 2, 3];
+    //numbersCopy = [];
+    //document.getElementById(cb-sort)
+
 function readTasks() {
     tasks = readStorage()
     let newString = ""

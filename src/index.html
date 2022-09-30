@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,26 +24,11 @@
   <h1 font-family: Sofia, sans-serif>To Do List</h1>
 
   <!-- Checkboxes -->
-  <input type='checkbox' class="toggle-switch" id="cb-sort" name="cb-sort"/><label for="cb-sort">Sort by date</label>
+  <input onclick="sortTasks()" type='checkbox' class="toggle-switch" id="cb-sort" name="cb-sort"/><label for="cb-sort">Sort by date</label>
   <input type='checkbox' class="toggle-switch" id="ft-sort" name="ft-sort"/><label for="ft-sort">Filter completed tasks</label>
 
   <!-- List of tasks -->
-  <ul class="tasklist" id="taskList">
-    <!-- <input type="checkbox" class="task-done checkbox-icon" name="check1" id="check1"/>
-    <li class="task-description set-width">Do homework</li>
-    <li class="task-date">09-07-2022</li>
-    <button class="task-delete material-icon" type="button">clear</button><br>
-
-    <input type="checkbox" class="task-done checkbox-icon" name="check2" id="check2" checked/>
-    <li class="task-description set-width checked-task">Hang with friends</li>
-    <li class="task-date">09-08-2022</li>
-    <button class="task-delete material-icon" type="button">clear</button><br>
-
-    <input type="checkbox" class="task-done checkbox-icon" name="check3" id="check3"/>
-    <li class="task-description set-width">Get some sleep</li>
-    <li class="task-date">09-12-2022</li>
-    <button class="task-delete material-icon" type="button">clear</button><br> -->
-  </ul>
+  <ul class="tasklist" id="taskList"></ul>
 
   <!-- Input Form -->
   <form class="form-create-task" onsubmit="createTask(event)" onclick="(readStorage)">
